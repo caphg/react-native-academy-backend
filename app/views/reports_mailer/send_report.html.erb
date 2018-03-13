@@ -1,0 +1,53 @@
+
+<p>Marka automobila: <%= @data[:carBrand] %> <%= @data[:carYear] %> </p>
+<p>Registracijske oznake: <%= @data[:carLicensePlates] %></p>
+
+<table class="pure-table">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Vrijeme</th>
+      <th>Pocetno stanje</th>
+      <th>Zavrsno stanje</th>
+      <th>Broj kilometara</th>
+      <th>Naziv lokacije</th>
+      <th>Izvjesce o radu</th>
+      <th>Vrsta puta</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @data[:report].each_with_index do |trip, idx| %>
+      <tr class="<%= idx % 2 == 0 ? 'pure-table-odd' : '' %>">
+        <td><%= idx + 1 %></td>
+        <td><%= trip[:datetime] %></td>
+        <td><%= trip[:starting_distance] %></td>
+        <td><%= trip[:ending_distance] %></td>
+        <td><%= trip[:ending_distance] - trip[:starting_distance] %></td>
+        <td><%= trip[:destination] %></td>
+        <td><%= trip[:description] %></td>
+        <td><%= trip[:is_official] ? 'Sluzbeno' : 'Nesluzbeno' %></td>
+      </tr>
+    <% end %>
+    <tr class="total-row">
+      <td>UKUPNO KILOMETARA U SLUZBENE SVRHE</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><%= @total_official_distance %></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr class="total-row">
+      <td>UKUPNO KILOMETARA U PRIVATNE SVRHE</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><%= @total_unofficial_distance %></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>

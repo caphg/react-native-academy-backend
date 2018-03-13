@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style>
+      body {
+        color: #777;
+        line-height: 1.6;
+      }
+
+      .total-row {
+        border-top: 1px dashed;
+      }
+
+      .pure-table {
+        empty-cells: show;
+        border: 1px solid #cbcbcb;
+      }
+
+      .pure-table, table {
+        border-collapse: collapse;
+        border-spacing: 0;
+      }
+
+      .pure-table thead {
+        background-color: #e0e0e0;
+        color: #000;
+        text-align: left;
+        vertical-align: bottom;
+      }
+
+      .pure-table td:first-child, .pure-table th:first-child {
+        border-left-width: 0;
+      }
+
+      .pure-table th, .pure-table td {
+        padding: 0.5em 1em;
+      }
+
+      .pure-table td, .pure-table th {
+        border-left: 1px solid #cbcbcb;
+        border-width: 0 0 0 1px;
+        font-size: inherit;
+        margin: 0;
+        overflow: visible;
+        padding: .5em 1em;
+      }
+
+      .pure-table-odd td, .pure-table-striped tr:nth-child(2n-1) td {
+        background-color: #f2f2f2;
+      }
+
+      .pure-table th, .pure-table td {
+        padding: 0.5em 1em;
+      }
+    </style>
+  </head>
+
+  <body>
+    <%= yield %>
+  </body>
+</html>
