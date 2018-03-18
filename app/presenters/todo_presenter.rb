@@ -11,6 +11,7 @@ class TodoPresenter
   def todo_contacts(todo)
     todo.contacts.map do |c|
       {
+        id: c.id,
         name: c.name,
         phone: c.phone
       }
