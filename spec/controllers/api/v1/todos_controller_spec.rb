@@ -17,7 +17,8 @@ RSpec.describe Api::V1::TodosController do
         {
           "id" => todo.id,
           "title" => todo.title,
-          "description" => todo.description
+          "description" => todo.description,
+          "contacts" => []
         }
       ], json)
     end
@@ -32,6 +33,11 @@ RSpec.describe Api::V1::TodosController do
       post :create, params: todo_params
       expect(json['title']).to eq('test')
     end
+
+    it 'creates todo with contact' do
+      post :create, params: todo_params.merge(contacts_attributes: [{name:'hrvoje', phone: '123-123-123'}])
+      expect(json['contacts'].length).to eq(1)
+    end
   end
 
   describe 'POST #update' do
@@ -42,6 +48,12 @@ RSpec.describe Api::V1::TodosController do
     it 'updates todo sucessfully' do
       put :update, params: todo_params.merge(title: 'test2')
       expect(json['title']).to eq('test2')
+    end
+
+    it 'updates todo with contact' do
+      contact = Contact.create!(name: 'jim', todo_id: todo.id)
+      post :update, params: todo_params.merge(contacts_attributes: [{id: contact.id, name:'hrvoje', phone: '123-123-123'}])
+      expect(json['contacts'][0]['name']).to eq('hrvoje')
     end
   end
 
