@@ -3,6 +3,7 @@ class TodoPresenter
     {
       id: todo.id,
       title: todo.title,
+      imageUrl: todo.image_url,
       description: todo.description,
       contacts: todo_contacts(todo)
     }

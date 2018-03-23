@@ -40,7 +40,7 @@ module Api::V1
     end
 
     def todo_params
-      params.permit(:id, :title, :description, contacts_attributes: [:id, :name, :phone, :_destroy])
+      params.permit(:id, :image_url, :title, :description, contacts_attributes: [:id, :name, :phone, :_destroy])
     end
   end
 end

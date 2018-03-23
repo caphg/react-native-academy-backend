@@ -18,6 +18,7 @@ RSpec.describe Api::V1::TodosController do
           "id" => todo.id,
           "title" => todo.title,
           "description" => todo.description,
+          "imageUrl" => todo.image_url,
           "contacts" => []
         }
       ], json)
