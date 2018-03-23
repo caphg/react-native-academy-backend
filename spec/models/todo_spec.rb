@@ -7,13 +7,12 @@ RSpec.describe Todo, type: :model do
   end
 
   context 'associations' do
-    it { should belong_to(:user) }
+    it { should have_and_belong_to_many(:users) }
   end
 
   context 'validations' do
     subject { build(:todo) }
     it { should validate_presence_of(:title) }
-    it { should validate_presence_of(:user_id) }
   end
 
   specify 'factory' do

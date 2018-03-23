@@ -5,5 +5,5 @@ class User < ActiveRecord::Base
           :confirmable
   include DeviseTokenAuth::Concerns::User
 
-  has_many :todos
+  has_and_belongs_to_many :todos
 end

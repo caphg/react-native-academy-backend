@@ -5,5 +5,7 @@ FactoryGirl.define do
     name Faker::HeyArnold.character
     email Faker::Internet.email
     password '12345678'
+
+    todos {[FactoryGirl.create(:todo)]}
   end
 end

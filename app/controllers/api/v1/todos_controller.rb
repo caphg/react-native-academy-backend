@@ -5,7 +5,7 @@ module Api::V1
     before_action :authenticate_user!
 
     def index
-      todos = Todo.for_user(current_user)
+      todos = current_user.todos
       render json: todos.map { |v| TodoPresenter.new.as_json(v) }
     end
 

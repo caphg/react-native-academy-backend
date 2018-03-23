@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::TodosController do
-  let(:todo) { create(:todo) }
-  let(:user) { todo.user }
+  let(:user) { create(:user) }
+  let(:todo) { user.todos[0] }
 
   before do
     request.headers.merge! user.create_new_auth_token
