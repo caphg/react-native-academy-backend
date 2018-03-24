@@ -11,6 +11,8 @@ module Api::V1
     def create
       invitation = CreateInviteService.new(current_user).(invitation_params)
       render json: InvitationPresenter.new.as_json(invitation)
+    rescue Invitation::TodoCannotBeShared => e
+      render json: json_error(e), status: :unprocessable_entity
     rescue ActiveRecord::RecordInvalid => e
       render json: json_error(e), status: :not_found
     end

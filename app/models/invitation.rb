@@ -3,4 +3,6 @@ class Invitation < ActiveRecord::Base
             :second_user_id,
             :todo_id,
             presence: true
+
+  TodoCannotBeSharedError = Class.new(StandardError)
 end
