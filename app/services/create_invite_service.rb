@@ -5,9 +5,10 @@ class CreateInviteService
 
   def call(params)
     second_user = second_user(params)
+    raise Invitation::TodoCannotBeSharedError.new('User does not exist') if second_user.blank?
     raise Invitation::TodoCannotBeSharedError.new('Invitation already sent') if todo_sent?(second_user, params[:todo_id])
     raise Invitation::TodoCannotBeSharedError.new(
-      'You are owner of this todo, sharing it with others is more fun ;)'
+      'Sharing it with others is more fun ;)'
       ) if sharing_with_myself(second_user)
     raise Invitation::TodoCannotBeSharedError.new('Todo already shared') if !todo_sharable?(second_user, params[:todo_id])
 
@@ -19,7 +20,7 @@ class CreateInviteService
   end
 
   def second_user(params)
-    User.find_by!(email: params[:second_user_email])
+    User.find_by(email: params[:second_user_email])
   end
 
   def todo_sharable?(second_user, todo_id)
