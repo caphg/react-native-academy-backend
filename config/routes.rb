@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :health_check, only: [:index]
       resources :todos
+      resources :invitations
     end
   end
 end

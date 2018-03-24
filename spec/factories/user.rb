@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 FactoryGirl.define do
-  factory :user, class: User do
+  sequence :email do |n|
+    "email#{n}@factory.com"
+  end
 
+  factory :user, class: User do
     name Faker::HeyArnold.character
-    email Faker::Internet.email
+    email
     password '12345678'
 
     todos {[FactoryGirl.create(:todo)]}
