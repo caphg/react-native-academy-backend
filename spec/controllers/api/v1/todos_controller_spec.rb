@@ -33,6 +33,7 @@ RSpec.describe Api::V1::TodosController do
     it 'creates todo sucessfully' do
       post :create, params: todo_params
       expect(json['title']).to eq('test')
+      expect(Todo.last.title).to eq('test')
     end
 
     it 'creates todo with contact' do

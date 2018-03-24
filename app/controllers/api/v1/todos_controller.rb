@@ -10,7 +10,7 @@ module Api::V1
     end
 
     def create
-      todo = current_user.todos.build(todo_params)
+      todo = current_user.todos.create(todo_params)
       todo.save!
       render json: TodoPresenter.new.as_json(todo)
     rescue ActiveRecord::RecordInvalid => e
