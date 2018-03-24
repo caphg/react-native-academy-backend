@@ -16,8 +16,9 @@ module Api::V1
     end
 
     def update
+      resp = invitation_params[:accepted] ? TodoPresenter.new.as_json(todo) : {}
       AcceptRejectInviteService.new(current_user).(invitation_params)
-      render json: {}
+      render json: resp
     rescue ActiveRecord::RecordInvalid => e
       render json: json_error(e), status: :not_found
     end
@@ -25,11 +26,15 @@ module Api::V1
     private
 
     def invitation
-      @invitation ||= Invitations.find(params[:id])
+      @invitation ||= Invitation.find(params[:id])
     end
 
     def invitations
       @invitations ||= Invitation.where(second_user_id: current_user.id)
+    end
+
+    def todo
+      Todo.find(invitation.todo_id)
     end
 
     def invitation_params
