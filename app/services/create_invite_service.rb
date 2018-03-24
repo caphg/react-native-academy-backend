@@ -5,9 +5,9 @@ class CreateInviteService
 
   def call(params)
     second_user = second_user(params)
-    raise Invitation::TodoCannotBeShared.new('Todo already shared') if !todo_sharable?(second_user, params[:todo_id])
-    raise Invitation::TodoCannotBeShared.new('Invitation already sent') if todo_sent?(second_user, params[:todo_id])
-    raise Invitation::TodoCannotBeShared.new(
+    raise Invitation::TodoCannotBeSharedError.new('Todo already shared') if !todo_sharable?(second_user, params[:todo_id])
+    raise Invitation::TodoCannotBeSharedError.new('Invitation already sent') if todo_sent?(second_user, params[:todo_id])
+    raise Invitation::TodoCannotBeSharedError.new(
       'You are owner of this todo, sharing it with others is more fun ;)'
     ) if sharing_with_myself(second_user)
     Invitation.create!(
