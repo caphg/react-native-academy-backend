@@ -14,6 +14,8 @@ module Api::V1
       todo.save!
       render json: TodoPresenter.new.as_json(todo)
     rescue ActiveRecord::RecordInvalid => e
+      render json: json_error(e), status: :unprocessable_entity
+    rescue ActiveRecord::RecordNotFound => e
       render json: json_error(e), status: :not_found
     end
 
@@ -25,18 +27,23 @@ module Api::V1
       todo.update!(todo_params)
       render json: TodoPresenter.new.as_json(todo.reload)
     rescue ActiveRecord::RecordInvalid => e
+      render json: json_error(e), status: :unprocessable_entity
+    rescue ActiveRecord::RecordNotFound => e
       render json: json_error(e), status: :not_found
     end
 
     def destroy
+      Invitation.where(todo_id: todo.id).destroy_all
       todo.destroy!
       head(204)
+    rescue ActiveRecord::RecordNotFound => e
+      render json: json_error(e), status: :not_found
     end
 
     private
 
     def todo
-      @todo ||= current_user.todos.find_by(id: params[:id])
+      @todo ||= current_user.todos.find_by!(id: params[:id])
     end
 
     def todo_params
